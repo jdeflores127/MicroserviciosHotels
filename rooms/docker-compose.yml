@@ -1,0 +1,70 @@
+services:
+  configserver:
+   image: marcar30328675/configserver:latest
+   mem_limit: 800m
+   ports:
+      - "8085:8085"
+   networks:
+      - aleal-network	
+      
+  hotels:
+    image: marcar30328675/hotels:latest
+    mem_limit: 800m
+    ports:
+      - "8080:8080"
+    networks:
+      - aleal-network
+    depends_on: 
+      - configservice
+    deploy:
+     restart_policy:
+      condition: on-failure
+      delay: 10s
+      max_attempts: 10
+      window: 120s
+    environment:
+     SPRING_PROFILES_ACTIVE: dev
+     #Se añade nuevamente ya que en ambientes reales las IP pueden cambiar, internamente se resuelve que esta se tome
+     SPRING_CONFIG_IMPORT: configserver:http://configserver:8085
+  rooms:
+    image: marcar30328675/rooms:latest
+    mem_limit: 800m
+    ports:
+      - "8081:8081"
+    networks:
+      - aleal-network
+    depends_on: 
+      - configservice
+    deploy:
+     restart_policy:
+      condition: on-failure
+      delay: 10s
+      max_attempts: 10
+      window: 120s
+    environment:
+     SPRING_PROFILES_ACTIVE: dev
+     #Se añade nuevamente ya que en ambientes reales las IP pueden cambiar, internamente se resuelve que esta se tome
+     SPRING_CONFIG_IMPORT: configserver:http://configserver:8085
+    
+  reservations:
+    image: marcar30328675/reservations:latest
+    mem_limit: 800m
+    ports:
+      - "8082:8082"
+    networks:
+      - aleal-network
+    depends_on: 
+      - configservice
+    deploy:
+     restart_policy:
+      condition: on-failure
+      delay: 10s
+      max_attempts: 10
+      window: 120s
+    environment:
+     SPRING_PROFILES_ACTIVE: dev
+     #Se añade nuevamente ya que en ambientes reales las IP pueden cambiar, internamente se resuelve que esta se tome
+     SPRING_CONFIG_IMPORT: configserver:http://configserver:8085
+    
+networks:
+  aleal-network:
