@@ -30,9 +30,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!--Dependencia para la conexion al servidor de configuracion-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!--Dependencia para la suscripcion al servicio de descubrimiento-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-netflix-eureka-client</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
