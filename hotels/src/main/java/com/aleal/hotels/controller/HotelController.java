@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aleal.hotels.config.external.HotelExternalPropertiesConfig;
 import com.aleal.hotels.model.Hotel;
+import com.aleal.hotels.model.HotelRooms;
 import com.aleal.hotels.services.IHotelService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -35,6 +37,11 @@ public class HotelController {
 		return ow.writeValueAsString(hotelExternalPropertiesConfig);*/
 		return new StringBuilder().append(hotelExternalPropertiesConfig.toString()).toString();
 		//return "hola";
+	}
+	
+	@GetMapping("/hotels/getRoomByIdHotel/{idHotel}")
+	public HotelRooms getRoomsByIdHotel(@PathVariable("idHotel") Long idHotel) {
+		return service.getRoomsByHotel(idHotel);
 	}
 
 }

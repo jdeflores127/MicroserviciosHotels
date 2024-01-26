@@ -19,4 +19,10 @@ public class RoomServiceImpl implements IRoomService {
 		return (List<Room>) roomDao.findAll();
 	}
 
+	@Override
+	public List<Room> searchRoomByIdHotel(long idHotel) {
+		return roomDao.findByHotelId(idHotel);
+		
+	}
+
 }
