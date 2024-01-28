@@ -33,8 +33,7 @@ public class HotelServiceImpl implements IHotelService {
 	@Override
 	public HotelRooms getRoomsByHotel(long idHotel) {
 		//Obtener informacion del hotel con base al IdHotel de base de datos
-		Hotel hotelInfo = hotelDao.findById(idHotel)
-			.orElseThrow(() -> new NoSuchElementException("no existe el hotel con ID "));
+		Hotel hotelInfo = this.getRoomById(idHotel);
 		
 		List<Room> habitacionesXhotel = getRooms("feign", idHotel);
 		
@@ -46,6 +45,11 @@ public class HotelServiceImpl implements IHotelService {
 				.build();
 	}
 
+	public Hotel getRoomById(long idHotel) {
+		return hotelDao.findById(idHotel)
+				.orElseThrow(() -> new NoSuchElementException("no existe el hotel con ID "+idHotel));
+	}
+	
 	private List<Room> getRooms(String impl, long idHotel) {
 		if(impl.equals("feign")) {
 			//Consumir servicio rest mediante Feign
@@ -58,4 +62,6 @@ public class HotelServiceImpl implements IHotelService {
 		
 		throw new RuntimeException("implementacion no existe"); 
 	}
+
+	
 }

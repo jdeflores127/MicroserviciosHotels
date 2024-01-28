@@ -8,6 +8,7 @@ import com.aleal.hotels.model.HotelRooms;
 public interface IHotelService {
 	
 	List<Hotel> search();
+	Hotel getRoomById(long idHotel);
 	HotelRooms getRoomsByHotel(long idHotel);
 
 }

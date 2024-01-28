@@ -26,7 +26,8 @@ public class Room {
 	
 	@Column(name="room_available")
 	private String roomAvailable;
-
+	
+	private String port;
 }
 
 

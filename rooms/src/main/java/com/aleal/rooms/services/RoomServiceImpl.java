@@ -1,8 +1,10 @@
 package com.aleal.rooms.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.aleal.rooms.dao.IRoomDao;
@@ -13,6 +15,9 @@ public class RoomServiceImpl implements IRoomService {
 	
 	@Autowired
 	private IRoomDao roomDao;
+	
+	@Value("${server.port}")
+	private String puerto;
 
 	@Override
 	public List<Room> search() {
@@ -21,8 +26,13 @@ public class RoomServiceImpl implements IRoomService {
 
 	@Override
 	public List<Room> searchRoomByIdHotel(long idHotel) {
-		return roomDao.findByHotelId(idHotel);
-		
+		List<Room> listaHabitaciones = roomDao.findByHotelId(idHotel);
+		return listaHabitaciones
+				.stream()
+				.map(habitacion -> {
+					habitacion.setPort(puerto);
+					return habitacion;
+				}).collect(Collectors.toList());
 	}
 
 }

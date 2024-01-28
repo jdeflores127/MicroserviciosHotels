@@ -1,5 +1,6 @@
 package com.aleal.hotels.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aleal.hotels.config.external.HotelExternalPropertiesConfig;
 import com.aleal.hotels.model.Hotel;
 import com.aleal.hotels.model.HotelRooms;
+import com.aleal.hotels.model.Room;
 import com.aleal.hotels.services.IHotelService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+
+//import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 
 @RestController
@@ -40,8 +47,17 @@ public class HotelController {
 	}
 	
 	@GetMapping("/hotels/getRoomByIdHotel/{idHotel}")
+	@CircuitBreaker(name = "getRoomsByIdHotelCB")
+	@Retry(name = "getRoomsByIdHotelRetry", fallbackMethod = "getRoomsByIdHotelCBFallback")
 	public HotelRooms getRoomsByIdHotel(@PathVariable("idHotel") Long idHotel) {
 		return service.getRoomsByHotel(idHotel);
+	}
+	
+	public HotelRooms getRoomsByIdHotelCBFallback(Long idHotel, Throwable error) {
+		return HotelRooms.builder()
+				.hotel(service.getRoomById(idHotel))
+				.listaHabitaciones(new ArrayList<Room>())
+				.build();
 	}
 
 }

@@ -13,5 +13,7 @@ public class Room {
 	private String roomName;
 	
 	private String roomAvailable;
+	
+	private String port;
 
 }
