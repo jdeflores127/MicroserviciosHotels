@@ -116,5 +116,31 @@ services:
      #Se añade nuevamente ya que en ambientes reales las IP pueden cambiar, internamente se resuelve que esta se tome
      SPRING_CONFIG_IMPORT: configserver:http://configserver:8085
      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8065/eureka/
+  apigateway:
+    image: marcar30328675/apigateway:latest
+    mem_limit: 800m
+    ports:
+      - "8087:8087"
+    networks:
+      - aleal-network
+    depends_on: 
+      - configservice
+      - eurekaserver
+      - hotels
+      - rooms1
+      - rooms2
+      - reservations
+    deploy:
+     restart_policy:
+      condition: on-failure
+      delay: 50s
+      max_attempts: 10
+      window: 180s
+    environment:
+     SPRING_PROFILES_ACTIVE: dev
+     #Se añade nuevamente ya que en ambientes reales las IP pueden cambiar, internamente se resuelve que esta se tome
+     SPRING_CONFIG_IMPORT: configserver:http://configserver:8085
+     EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8065/eureka/
+
 networks:
   aleal-network:
