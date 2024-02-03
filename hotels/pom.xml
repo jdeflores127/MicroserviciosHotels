@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
+		<micrometer-tracing.version>1.2.2</micrometer-tracing.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -51,7 +52,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-		
+
 		<!--Dependencia usada para la resiliencia en la comunicacion de microservicios-->
 		<dependency>
 			<groupId>io.github.resilience4j</groupId>
@@ -80,6 +81,18 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!--Inicio: Dependencia para la trazabilidad distribuida a traves de micrometer-->
+		<!--Dependencia para el uso de un puente entre micrometer y el trazador Zipkin brave-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-brave</artifactId>
+		</dependency>
+		<!--Dependencia para el uso de reporteador Zipkin-->
+		<dependency>
+			<groupId>io.zipkin.reporter2</groupId>
+			<artifactId>zipkin-reporter-brave</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -102,6 +115,15 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!--Dependencias para el manejo de la trazabilidad distribuida con micrometer-->
+			<dependency>
+				<groupId>io.micrometer</groupId>
+				<artifactId>micrometer-tracing-bom</artifactId>
+				<version>${micrometer-tracing.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 	<build>

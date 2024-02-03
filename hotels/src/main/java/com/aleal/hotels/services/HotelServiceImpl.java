@@ -35,7 +35,7 @@ public class HotelServiceImpl implements IHotelService {
 		//Obtener informacion del hotel con base al IdHotel de base de datos
 		Hotel hotelInfo = this.getRoomById(idHotel);
 		
-		List<Room> habitacionesXhotel = getRooms("feign", idHotel);
+		List<Room> habitacionesXhotel = getRooms("restTemplate", idHotel);
 		
 		
 		
@@ -49,7 +49,7 @@ public class HotelServiceImpl implements IHotelService {
 		return hotelDao.findById(idHotel)
 				.orElseThrow(() -> new NoSuchElementException("no existe el hotel con ID "+idHotel));
 	}
-	
+	 
 	private List<Room> getRooms(String impl, long idHotel) {
 		if(impl.equals("feign")) {
 			//Consumir servicio rest mediante Feign

@@ -36,12 +36,7 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-		<!--Inicio: Dependencia para la trazabilidad distribuida a traves de micrometer-->
-		<!--<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-tracing</artifactId>
-		</dependency>-->
- 
+		<!--Inicio: Dependencia para la trazabilidad distribuida a traves de micrometer--> 
 		<!--Dependencia para el uso de un puente entre micrometer y el trazador Zipkin brave-->
 		<dependency>
 			<groupId>io.micrometer</groupId>
