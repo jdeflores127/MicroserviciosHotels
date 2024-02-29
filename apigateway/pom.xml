@@ -36,18 +36,15 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-		<!--Inicio: Dependencia para la trazabilidad distribuida a traves de micrometer--> 
-		<!--Dependencia para el uso de un puente entre micrometer y el trazador Zipkin brave-->
+		<!--Inicio: Dependencia para la trazabilidad distribuida a traves de micrometer-->
 		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-tracing-bridge-brave</artifactId>
+			<groupId>io.opentelemetry.instrumentation</groupId>
+			<artifactId>opentelemetry-spring-boot-starter</artifactId>
 		</dependency>
-		<!--Dependencia para el uso de reporteador Zipkin-->
 		<dependency>
-			<groupId>io.zipkin.reporter2</groupId>
-			<artifactId>zipkin-reporter-brave</artifactId>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporter-zipkin</artifactId>
 		</dependency>
-		
 		<!--Fin:Dependencia para la trazabilidad distribuida a traves de micrometer-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -70,11 +67,19 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!--Dependencias para el manejo de la trazabilidad distribuida con micrometer-->
+			<!--Dependencias para el manejo de la trazabilidad distribuida con open Telemetry-->
+
 			<dependency>
-				<groupId>io.micrometer</groupId>
-				<artifactId>micrometer-tracing-bom</artifactId>
-				<version>${micrometer-tracing.version}</version>
+				<groupId>io.opentelemetry</groupId>
+				<artifactId>opentelemetry-bom</artifactId>
+				<version>1.34.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.opentelemetry.instrumentation</groupId>
+				<artifactId>opentelemetry-instrumentation-bom-alpha</artifactId>
+				<version>2.0.0-alpha</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

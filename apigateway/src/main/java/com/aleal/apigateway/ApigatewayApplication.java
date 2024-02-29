@@ -8,6 +8,9 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+import io.opentelemetry.instrumentation.spring.autoconfigure.EnableOpenTelemetry;
+
+@EnableOpenTelemetry
 @SpringBootApplication
 public class ApigatewayApplication {
 
